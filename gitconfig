@@ -21,7 +21,5 @@
 	plo = pull origin
 	d = diff
 	m = merge --no-ff
-[color "status"]
-  added = green
-  changed = yellow bold
-  untracked = red bold
+[color]
+	ui = auto
