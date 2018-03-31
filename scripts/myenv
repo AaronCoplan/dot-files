@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -e
+
+if [[ $# -ne 0 ]]; then
+  echo "Please do not provide any arguments."
+  exit 1
+fi
+
+echo $USER
+hostname
+uname -a
