@@ -1,0 +1,20 @@
+#!/bin/bash
+
+set -e
+
+if [[ $# -ne 1 ]]; then
+  echo "Please provide 1 parameter, the number of dirs to cd up."
+  exit 1
+fi
+
+NUM_DIRS=$1
+NEW_DIR=$PWD
+for ((i=1; i<=NUM_DIRS;i++))
+do
+  NEW_DIR=$NEW_DIR/..
+done
+
+export MPWD=$NEW_DIR
+cd $NEW_DIR
+
+echo $NEW_DIR
