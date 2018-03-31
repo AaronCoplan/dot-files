@@ -1,0 +1,27 @@
+[user]
+	name = AaronCoplan
+	email = afcoplan@gmail.com
+[core]
+	editor = vim
+[alias]
+  am = commit --amend
+	cb = checkout -b
+  co = checkout
+	c = commit
+	ca = commit --all
+	aa = add --all
+	s = status
+	last = log -1 HEAD
+	bd = branch -d
+	pom = push origin master
+	po = push origin
+	pod = push origin --delete
+	pot = push origin --tags
+	pl = pull
+	plo = pull origin
+	d = diff
+	m = merge --no-ff
+[color "status"]
+  added = green
+  changed = yellow bold
+  untracked = red bold
