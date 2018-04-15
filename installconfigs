@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -e
+
+read -p "This may overwrite your existing configs, are you sure? Use Ctrl-C to cancel." ignoreme
+cp configs/gitconfig ~/.gitconfig
+cp configs/tmux.conf ~/.tmux.conf
+cp configs/zshrc ~/.zshrc
