@@ -17,7 +17,7 @@ echo "Installing Python"
 sudo apt install -y python
 
 echo "Installing Watchman Dependencies"
-sudo apt install -y libssl-dev autoconf automake libtool python-dev
+sudo apt install -y libssl-dev autoconf automake libtool python-dev pkg-config
 
 echo "Installing Watchman"
 git clone https://github.com/facebook/watchman.git
