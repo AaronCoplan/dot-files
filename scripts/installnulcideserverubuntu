@@ -11,4 +11,17 @@ rm -f nodesource_setup.sh
 sudo apt install -y nodejs
 sudo apt install -y build-essential
 
-echo "Done"
+echo "Installing Python"
+sudo apt install -y python
+
+echo "Installing Watchman"
+git clone https://github.com/facebook/watchman.git
+cd watchman
+git checkout v4.9.0  # the latest stable release
+./autogen.sh
+./configure
+make
+sudo make install
+
+echo "Finished installing components!"
+echo "Make sure your server has a SSH Daemon running and has ports 9090-9093 exposed!"
