@@ -1,0 +1,14 @@
+#!/bin/bash
+
+echo "Upgrading existing packages..."
+sudo apt update
+sudo apt upgrade -y
+
+echo "Installing NodeJS and NPM..."
+curl -sL https://deb.nodesource.com/setup_8.x -o nodesource_setup.sh
+sudo bash nodesource_setup.sh
+rm -f nodesource_setup.sh
+sudo apt install -y nodejs
+sudo apt install -y build-essential
+
+echo "Done"
