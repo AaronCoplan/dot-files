@@ -37,5 +37,8 @@ echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/source
 sudo apt update
 sudo apt install -y yarn
 
+echo "Installing Flow Globally"
+sudo npm install -g flow-bin
+
 echo "Finished installing components!"
 echo "Make sure your server has a SSH Daemon running and has ports 9090-9093 exposed!"
