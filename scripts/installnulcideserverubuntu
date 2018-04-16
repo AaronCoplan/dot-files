@@ -16,6 +16,9 @@ sudo apt install -y build-essential
 echo "Installing Python"
 sudo apt install -y python
 
+echo "Installing Watchman Dependencies"
+sudo apt install -y libssl-dev autoconf automake libtool python-dev
+
 echo "Installing Watchman"
 git clone https://github.com/facebook/watchman.git
 cd watchman
@@ -24,6 +27,10 @@ git checkout v4.9.0  # the latest stable release
 ./configure
 make
 sudo make install
+
+echo "Installing Nuclide Server"
+sudo npm install -g nuclide
+
 
 echo "Finished installing components!"
 echo "Make sure your server has a SSH Daemon running and has ports 9090-9093 exposed!"
