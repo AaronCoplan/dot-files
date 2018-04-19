@@ -1,6 +1,6 @@
 [user]
-	name = AaronCoplan
-	email = afcoplan@gmail.com
+	name = MyGitUsername
+	email = MyGitEmail@MyDomain
 [core]
 	editor = vim
 [alias]
