@@ -14,3 +14,4 @@
 - Forest: stay focused, be present
 - Google Calendar (by Google)
 - LastPass: Free Password Manager
+- Grammarly for Chrome
