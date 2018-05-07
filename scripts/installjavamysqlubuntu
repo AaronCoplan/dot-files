@@ -1,0 +1,14 @@
+#!/bin/bash
+
+set -e
+
+echo "Upgrading existing packages..."
+sudo apt update
+sudo apt upgrade -y
+
+echo "Installing Java..."
+sudo apt install -y openjdk-8-jdk
+
+echo "Installing MySQL..."
+sudo apt install -y mysql-server
+sudo mysql_secure_installation
