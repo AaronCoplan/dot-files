@@ -12,3 +12,5 @@ sudo apt install -y openjdk-8-jdk
 echo "Installing MySQL..."
 sudo apt install -y mysql-server
 sudo mysql_secure_installation
+
+echo "Finished successfully!"
