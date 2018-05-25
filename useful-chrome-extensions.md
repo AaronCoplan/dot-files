@@ -3,6 +3,7 @@
 ### Browsing
 - Adblock Plus
 - Honey
+- LastPass: Free Password Manager
 
 ### Coding
 - GitHub Hovercard
@@ -13,5 +14,5 @@
 ### Productivity
 - Forest: stay focused, be present
 - Google Calendar (by Google)
-- LastPass: Free Password Manager
 - Grammarly for Chrome
+- Full Page Screen Capture
