@@ -4,6 +4,7 @@
 - Adblock Plus
 - Honey
 - LastPass: Free Password Manager
+- Volume Booster
 
 ### Coding
 - GitHub Hovercard
