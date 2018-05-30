@@ -29,7 +29,7 @@ make
 sudo make install
 
 echo "Installing Nuclide Server"
-sudo npm install -g nuclide
+sudo npm install --unsafe-perm -g nuclide
 
 echo "Installing Yarn"
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
