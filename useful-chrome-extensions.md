@@ -11,6 +11,7 @@
 - Isometric Contributions
 - Octotree
 - React Developer Tools
+- FoxyProxy Standard
 
 ### Productivity
 - Forest: stay focused, be present
