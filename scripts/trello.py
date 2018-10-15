@@ -36,13 +36,35 @@ def main():
 
     cards = subtractLists(cards, dueTodayCards)
 
+    overdueOrDoSoonCards = list(reversed(sortByDate(overdueCards + dueTodayCards)))
+    staleCards = list(filter(isCardStale, cards))
+
     opsCompleted = len(overdueCards) + len(dueTodayCards) + len(dueNext7DaysCards)
-    print('{} operations completed.  The following cards are overdue or due soon:'.format(opsCompleted))
-    for card in reversed(sortByDate(overdueCards + dueTodayCards)):
+
+    printHeader('{} operations completed.  The following {} cards are overdue or due soon:'.format(opsCompleted, len(overdueOrDoSoonCards)))
+    for card in overdueOrDoSoonCards:
         print('-  {}'.format(card['name']))
+
+    printHeader("The following {} cards are stale:".format(len(staleCards)))
+    for card in staleCards:
+        print('- {}'.format(card['name']))
+
+def printHeader(string):
+    dashString = ''
+    for _ in range(len(string) + 4):
+        dashString += '-'
+    print(dashString)
+    print('| {} |'.format(string))
+    dashString = ''
+    for _ in range(len(string) + 4):
+        dashString += '-'
+    print(dashString)
 
 def sortByDate(cards):
     return sorted(cards, key=lambda card: card['due'], reverse=True)
+
+def isCardStale(card):
+    return parseDueDateAsLocalDateTime(card['dateLastActivity']) < (CURRENT_DATE_TIME + timedelta(days=-10))
 
 def isCardDueNext7Days(card):
     if card['due'] is None:
@@ -68,7 +90,11 @@ def loadBoardData(boardName):
         board = board[0]
 
     jsonLists = makeRequest('/boards/{}/lists'.format(board['id']), params="?filter=open&cards=open")
-    jsonCards = makeRequest('/boards/{}/cards/open'.format(board['id']))
+
+    jsonCards = []
+    for jsonList in jsonLists:
+        jsonCards += jsonList['cards']
+
     return (jsonLists, jsonCards)
 
 def parseDueDateAsLocalDateTime(dueDateStr):
