@@ -64,7 +64,7 @@ def sortByDate(cards):
     return sorted(cards, key=lambda card: card['due'], reverse=True)
 
 def isCardStale(card):
-    return parseDueDateAsLocalDateTime(card['dateLastActivity']) < (CURRENT_DATE_TIME + timedelta(days=-10))
+    return parseDueDateAsLocalDateTime(card['dateLastActivity']) < (CURRENT_DATE_TIME + timedelta(days=-10)) and card['due'] is None
 
 def isCardDueNext7Days(card):
     if card['due'] is None:
