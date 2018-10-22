@@ -15,7 +15,7 @@ CURRENT_DATE_TIME = datetime.now().astimezone()
 
 def main():
     loadCreds()
-    (lists, cards) = loadBoardData('To Do')
+    (lists, cards, staleLabel) = loadBoardData('To Do')
 
     overdueList = filterToListX(lists, 'Overdue')
     todayList = filterToListX(lists, 'Today')
@@ -37,16 +37,24 @@ def main():
     cards = subtractLists(cards, dueTodayCards)
 
     overdueOrDoSoonCards = list(reversed(sortByDate(overdueCards + dueTodayCards)))
+
     staleCards = list(filter(isCardStale, cards))
+    staleCardsWithoutLabel = list(filter(lambda card: not cardHasLabel(card, staleLabel), staleCards))
+    addLabelToCards(staleCardsWithoutLabel, staleLabel)
 
-    opsCompleted = len(overdueCards) + len(dueTodayCards) + len(dueNext7DaysCards)
+    noLongerStaleCards = list(filter(lambda card: cardHasLabel(card, staleLabel), subtractLists(cards, staleCards)))
+    removeLabelFromCards(noLongerStaleCards, staleLabel)
 
-    printHeader('{} operations completed.  The following {} cards are overdue or due soon:'.format(opsCompleted, len(overdueOrDoSoonCards)))
+    printHeader('The following {} cards are overdue or due soon:'.format(len(overdueOrDoSoonCards)))
     for card in overdueOrDoSoonCards:
         print('-  {}'.format(card['name']))
 
-    printHeader("The following {} cards are stale:".format(len(staleCards)))
-    for card in staleCards:
+    printHeader("Marked the following {} cards as stale:".format(len(staleCardsWithoutLabel)))
+    for card in staleCardsWithoutLabel:
+        print('- {}'.format(card['name']))
+
+    printHeader('Removed the stale label from the following {} cards:'.format(len(noLongerStaleCards)))
+    for card in noLongerStaleCards:
         print('- {}'.format(card['name']))
 
 def printHeader(string):
@@ -64,7 +72,17 @@ def sortByDate(cards):
     return sorted(cards, key=lambda card: card['due'], reverse=True)
 
 def isCardStale(card):
-    return parseDueDateAsLocalDateTime(card['dateLastActivity']) < (CURRENT_DATE_TIME + timedelta(days=-10)) and card['due'] is None
+    staleThresholdDate = CURRENT_DATE_TIME + timedelta(days=-10)
+    creationDate = parseDateCreated(card)
+
+    if creationDate >= staleThresholdDate:
+        return False
+
+    jsonActions = makeRequest('/cards/{}/actions'.format(card['id']), params='?limit=1')
+    if len(jsonActions) == 0:
+        return True
+    lastAction = jsonActions[0]
+    return parseDueDateAsLocalDateTime(lastAction['date']) < staleThresholdDate and card['due'] is None
 
 def isCardDueNext7Days(card):
     if card['due'] is None:
@@ -84,23 +102,57 @@ def isCardOverdue(card):
 def loadBoardData(boardName):
     jsonBoards = makeRequest('/members/me/boards')
     board = list(filter(lambda board: board['name'] == boardName, jsonBoards))
-    if board is None:
+    if board is None or len(board) == 0:
         raise Exception('Could not find To Do board')
     else:
         board = board[0]
 
     jsonLists = makeRequest('/boards/{}/lists'.format(board['id']), params="?filter=open&cards=open")
-
     jsonCards = []
     for jsonList in jsonLists:
         jsonCards += jsonList['cards']
 
-    return (jsonLists, jsonCards)
+    jsonLabels = makeRequest('/boards/{}/labels'.format(board['id']))
+    staleLabel = list(filter(lambda label: label['name'] == 'STALE', jsonLabels))
+    if staleLabel is None or len(staleLabel) == 0:
+        raise Exception('Could not find STALE label')
+    else:
+        staleLabel = staleLabel[0]
+
+    return (jsonLists, jsonCards, staleLabel)
 
 def parseDueDateAsLocalDateTime(dueDateStr):
     date = datetime.fromisoformat(dueDateStr.replace('Z', ''))
     date = date.replace(tzinfo=timezone.utc)
     return date.astimezone()
+
+def parseDateCreated(card):
+    return datetime.fromtimestamp(int(card['id'][0:8],16)).astimezone()
+
+def cardHasLabel(card, label):
+    return label['id'] in card['idLabels']
+
+def removeLabelFromCards(cards, label):
+    for card in cards:
+        removeLabelFromCard(card, label)
+
+def removeLabelFromCard(card, label):
+    removeLabelId = label['id']
+    if removeLabelId in card['idLabels']:
+        card['idLabels'] = list(filter(lambda id: id != removeLabelId, card['idLabels']))
+        labelsParam = ','.join(card['idLabels'])
+        makeRequest('/cards/{}'.format(card['id']), '?idLabels={}'.format(labelsParam), 'PUT')
+
+def addLabelToCards(cards, label):
+    for card in cards:
+        addLabelToCard(card, label)
+
+def addLabelToCard(card, label):
+    newLabelId = label['id']
+    if newLabelId not in card['idLabels']:
+        card['idLabels'].append(newLabelId)
+        labelsParam = ','.join(card['idLabels'])
+        makeRequest('/cards/{}'.format(card['id']), '?idLabels={}'.format(labelsParam), 'PUT')
 
 def moveCardsToList(cards, newList, position=None):
     for card in cards:
