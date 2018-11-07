@@ -20,6 +20,7 @@ def main():
     overdueList = filterToListX(lists, 'Overdue')
     todayList = filterToListX(lists, 'Today')
     next7DaysList = filterToListX(lists, 'Next 7 Days')
+    backburnerList = filterToListX(lists, 'Backburner')
 
     overdueCards = sortByDate(list(filter(isCardOverdue, cards)))
     moveCardsToList(overdueCards, overdueList, position='top')
@@ -44,6 +45,9 @@ def main():
 
     noLongerStaleCards = list(filter(lambda card: cardHasLabel(card, staleLabel), subtractLists(cards, staleCards)))
     removeLabelFromCards(noLongerStaleCards, staleLabel)
+
+    backburnerCards = sortByDate(list(filter(lambda card: card['due'] is not None, getCardsForList(backburnerList))))
+    moveCardsToList(backburnerCards, backburnerList, position='top')
 
     printHeader('The following {} cards are overdue or due soon:'.format(len(overdueOrDoSoonCards)))
     for card in overdueOrDoSoonCards:
@@ -98,6 +102,9 @@ def isCardOverdue(card):
     if card['due'] is None:
         return False
     return parseDueDateAsLocalDateTime(card['due']) < CURRENT_DATE_TIME
+
+def getCardsForList(lst):
+    return makeRequest('/lists/{}/cards'.format(lst['id']))
 
 def loadBoardData(boardName):
     jsonBoards = makeRequest('/members/me/boards')
