@@ -97,3 +97,6 @@ source $ZSH/oh-my-zsh.sh
 # Add colors to Terminal
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
+
+autoload -U promptinit; promptinit
+prompt pure
