@@ -1,6 +1,0 @@
-#!/bin/bash
-
-set -e
-
-sudo apt install -y emacs
-bash <(curl -fksSL https://raw.github.com/overtone/emacs-live/master/installer/install-emacs-live.sh)
