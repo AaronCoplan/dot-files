@@ -2,7 +2,89 @@
 
 set -e
 
-read -p "This may overwrite your existing configs, are you sure? Use Ctrl-C to cancel." ignoreme
+mac_specific_install() {
+  # install Homebrew
+  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  # make sure Homebrew is setup
+  brew doctor
+  # install git via Homebrew
+  brew install git
+  # install node and npm via Homebrew
+  brew install node
+  # install tmux via Homebrew
+  brew install tmux
+  # install zsh via Homebrew
+  brew install zsh
+}
+
+ubuntu_specific_install() {
+  # update package lists
+  sudo apt update
+  # upgrade packages
+  sudo apt upgrade -y
+  #install git via apt
+  sudo apt install -y git
+  # install node and npm via apt
+  curl -sL https://deb.nodesource.com/setup_8.x -o nodesource_setup.sh | sudo bash
+  sudo apt install -y nodejs
+  # install tmux via apt
+  sudo apt install -y tmux
+  # install zsh via apt
+  sudo apt install -y zsh
+}
+
+# determine OS and perform OS specific install
+PS3='Please select your OS: '
+options=("Mac" "Ubuntu" "Other/Quit")
+select opt in "${options[@]}"
+do
+    case $opt in
+        "Mac")
+            mac_specific_install
+            break
+            ;;
+        "Ubuntu")
+            ubuntu_specific_install
+            break
+            ;;
+        "Quit")
+            exit 1
+            ;;
+        *)
+            echo "[ERROR] Invalid Option: $REPLY, exiting."
+            exit 1
+            ;;
+    esac
+done
+
+# now that zsh is installed, make it default shell
+echo $(which zsh) | sudo tee -a /etc/shells
+chsh -s $(which zsh)
+
+# install oh-my-zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+# install pure-prompt
+npm install --global pure-prompt
+
+# install zsh-syntax-highlighting oh-my-zsh plugin, ignore error if exists
+set +e
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+set -e
+
+# setup gitconfig
+echo -n "Enter your GitHub username for your gitconfig: "
+read GITHUB_USERNAME
+
+echo -n "Enter your GitHub email for your gitconfig: "
+read GITHUB_EMAIL
+
 cp configs/gitconfig ~/.gitconfig
+sed -i -e "s/GIT_USERNAME_PLACEHOLDER/$GITHUB_USERNAME/g" ~/.gitconfig
+sed -i -e "s/GIT_EMAIL_PLACEHOLDER/$GITHUB_EMAIL/g" ~/.gitconfig
+
+# setup tmux.conf
 cp configs/tmux.conf ~/.tmux.conf
+
+# setup zshrc
 cp configs/zshrc ~/.zshrc

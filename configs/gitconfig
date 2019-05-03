@@ -1,6 +1,6 @@
 [user]
-	name = MyGitUsername
-	email = MyGitEmail@MyDomain
+	name = GIT_USERNAME_PLACEHOLDER
+	email = GIT_EMAIL_PLACEHOLDER
 [core]
 	editor = vim
 [alias]
