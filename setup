@@ -24,18 +24,24 @@ mac_specific_install() {
 
 ubuntu_specific_install() {
   # update package lists
+  print_header "Updating package lists"
   sudo apt update
   # upgrade packages
+  print_header "Upgrading packages"
   sudo apt upgrade -y
   #install git via apt
+  print_header "Installing git"
   sudo apt install -y git
   # install node and npm via apt
+  print_header "Installing Node and NPM"
   curl -sL https://deb.nodesource.com/setup_8.x | sudo bash
   sudo apt update
   sudo apt install -y nodejs
   # install tmux via apt
+  print_header "Installing tmux"
   sudo apt install -y tmux
   # install zsh via apt
+  print_header "Installing zsh"
   sudo apt install -y zsh
 }
 
