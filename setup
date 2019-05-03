@@ -101,6 +101,11 @@ sed -i -e "s/GIT_EMAIL_PLACEHOLDER/$GITHUB_EMAIL/g" ~/.gitconfig
 print_header "Setting up tmux.conf"
 cp configs/tmux.conf ~/.tmux.conf
 
+# setup aliases
+print_header "Setting up aliases"
+rm -rf ~/.dotfiles_aliases
+cp -r aliases ~/.dotfiles_aliases
+
 # setup zshrc
 print_header "Setting up zshrc"
 cp configs/zshrc ~/.zshrc

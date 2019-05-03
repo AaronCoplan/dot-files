@@ -99,5 +99,12 @@ source $ZSH/oh-my-zsh.sh
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
 
+# Setup pure prompt
 autoload -U promptinit; promptinit
 prompt pure
+
+# Setup custom commands
+source ~/.dotfiles_aliases/cdu
+source ~/.dotfiles_aliases/createdockspacer
+source ~/.dotfiles_aliases/printheader
+source ~/.dotfiles_aliases/waitforhost
