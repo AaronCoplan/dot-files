@@ -9,7 +9,7 @@
   co = checkout
 	c = commit
 	ca = commit --all
-        can = commit --all --no-verify
+  can = commit --all --no-verify
 	aa = add --all
 	s = status
 	last = log -1 HEAD
