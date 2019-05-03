@@ -1,13 +1,14 @@
 #!/bin/bash
 
 cdu() {
-
+  # check that the argument exists
   if [ -z "$1" ]
   then
     echo "No argument supplied to cdu!"
     return 1
   fi
 
+  # append "/.." to directory path NUM_DIRS times
   NUM_DIRS=$1
   NEW_DIR=$PWD
   for ((i=1; i<=NUM_DIRS;i++))
@@ -15,5 +16,6 @@ cdu() {
     NEW_DIR=$NEW_DIR/..
   done
 
-  cd $NEW_DIR  
+  # cd to the new directory path we have created
+  cd $NEW_DIR
 }
