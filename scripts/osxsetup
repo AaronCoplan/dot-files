@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Finder: allow quitting via Command-Q, all Desktop icons/files will be hidden
+defaults write com.apple.finder QuitMenuItem -bool true
