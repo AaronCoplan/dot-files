@@ -1,39 +1,34 @@
+#!/bin/bash
+
 # simple print function that takes a single argument
 # prints the argument as a header wrapped in dashes and pipes
 print_header() {
-    # check that the argument exists
-    if [ -z "$1" ]
-    then
-	echo "No argument supplied to print_header!"
-	return 1
-    fi
+  # check that the argument exists
+  if [ -z "$1" ]
+  then
+    echo "No argument supplied to print_header!"
+    return 1
+  fi
 
-     # get the string length for formatting
-    strlen=${#1}
+  # get the string length for formatting
+  strlen=${#1}
 
-     echo ""
+  # echo first line of dashes
+  line="--"
+  for i in `eval echo {1..$strlen}`
+  do
+    line="$line-"
+  done
+  echo "$line--"
 
-     # echo first line of dashes
-    echo -n "--"
-    for i in `eval echo {1..$strlen}`
-    do
-	echo -n "-"
-    done
-    echo "--"
+  # echo the argument
+  echo "| $1 |"
 
-     # echo the argument
-    echo -n "| "
-    echo -n $1
-    echo " |"
-
-     # echo the second line of dashes
-    echo -n "--"
-    for i in `eval echo {1..$strlen}`
-    do
-	echo -n "-"
-    done
-    echo "--"
-    echo ""
-
-     sleep 1
+  # echo the second line of dashes
+  line="--"
+  for i in `eval echo {1..$strlen}`
+  do
+    line="$line-"
+  done
+  echo "$line--"
 }
