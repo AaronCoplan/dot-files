@@ -4,16 +4,21 @@ set -e
 
 mac_specific_install() {
   # install Homebrew
+  print_header "Installing Homebrew"
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   # make sure Homebrew is setup
   brew doctor
   # install git via Homebrew
+  print_header "Installing git"
   brew install git
   # install node and npm via Homebrew
+  print_header "Installing Node and NPM"
   brew install node
   # install tmux via Homebrew
+  print_header "Installing tmux"
   brew install tmux
   # install zsh via Homebrew
+  print_header "Installing zsh"
   brew install zsh
 }
 
@@ -33,7 +38,11 @@ ubuntu_specific_install() {
   sudo apt install -y zsh
 }
 
+# source helper function for printing
+source aliases/printheader
+
 # determine OS and perform OS specific install
+print_header "Begining Installation"
 PS3='Please select your OS: '
 options=("Mac" "Ubuntu" "Other/Quit")
 select opt in "${options[@]}"
@@ -58,21 +67,26 @@ do
 done
 
 # now that zsh is installed, make it default shell
+print_header "Setting zsh as default shell"
 echo $(which zsh) | sudo tee -a /etc/shells
 chsh -s $(which zsh)
 
 # install oh-my-zsh
+print_header "Installing oh-my-zsh"
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
 # install pure-prompt
+print_header "Installing pure-prompt"
 npm install --global pure-prompt
 
 # install zsh-syntax-highlighting oh-my-zsh plugin, ignore error if exists
+print_header "Installing zsh-syntax-highlighting plugin"
 set +e
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 set -e
 
 # setup gitconfig
+print_header "Setting up gitconfig"
 echo -n "Enter your GitHub username for your gitconfig: "
 read GITHUB_USERNAME
 
@@ -84,7 +98,11 @@ sed -i -e "s/GIT_USERNAME_PLACEHOLDER/$GITHUB_USERNAME/g" ~/.gitconfig
 sed -i -e "s/GIT_EMAIL_PLACEHOLDER/$GITHUB_EMAIL/g" ~/.gitconfig
 
 # setup tmux.conf
+print_header "Setting up tmux.conf"
 cp configs/tmux.conf ~/.tmux.conf
 
 # setup zshrc
+print_header "Setting up zshrc"
 cp configs/zshrc ~/.zshrc
+
+print_header "Setup completed successfully"

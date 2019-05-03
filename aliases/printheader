@@ -13,6 +13,9 @@ print_header() {
   # get the string length for formatting
   strlen=${#1}
 
+  # echo empty line
+  echo ""
+
   # echo first line of dashes
   line="--"
   for i in `eval echo {1..$strlen}`
