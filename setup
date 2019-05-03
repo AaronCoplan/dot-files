@@ -78,7 +78,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/mas
 
 # install pure-prompt
 print_header "Installing pure-prompt"
-npm install --global pure-prompt
+sudo npm install --global pure-prompt --allow-root --unsafe-perm=true
 
 # install zsh-syntax-highlighting oh-my-zsh plugin, ignore error if exists
 print_header "Installing zsh-syntax-highlighting plugin"
