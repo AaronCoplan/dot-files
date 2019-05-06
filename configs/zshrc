@@ -95,6 +95,9 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# Aliases
+alias cls="clear"
+
 # Add colors to Terminal
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
