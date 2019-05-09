@@ -20,6 +20,8 @@ mac_specific_install() {
   # install zsh via Homebrew
   print_header "Installing zsh"
   brew install zsh
+  # install source-code-pro font required for terminal profile
+  brew tap homebrew/cask-fonts && brew cask install font-source-code-pro
   # configure system settings
   # allow quitting finder via Command-Q, this hides Desktop icons/files
   defaults write com.apple.finder QuitMenuItem -bool true

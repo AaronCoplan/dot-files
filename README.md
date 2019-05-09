@@ -3,4 +3,4 @@
 Configurations and useful scripts.
 
 * setup -- Script which installs everything from this repository and sets up your environment.
-* [Nord Terminal Theme](https://github.com/arcticicestudio/nord-terminal-app)
+* configs/terminal-conf.terminal -- Terminal profile for Mac's Terminal.app
