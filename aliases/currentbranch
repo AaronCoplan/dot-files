@@ -1,5 +1,5 @@
 #!/bin/bash
 
-curbranch() {
+curbr() {
   git branch | grep \* | cut -d ' ' -f2
 }
