@@ -111,3 +111,4 @@ source ~/.dotfiles_aliases/cdu
 source ~/.dotfiles_aliases/createdockspacer
 source ~/.dotfiles_aliases/printheader
 source ~/.dotfiles_aliases/waitforhost
+source ~/.dotfiles_aliases/currentbranch
