@@ -15,3 +15,4 @@
 - Google Calendar (by Google)
 - Grammarly for Chrome
 - Full Page Screen Capture
+- Webtime Tracker
