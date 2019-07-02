@@ -68,7 +68,7 @@ build
 
 # Ignore IntelliJ files
 *.iml
-idea/
+.idea/
 """
 
     sh.gradle('init', _cwd=folderName)
