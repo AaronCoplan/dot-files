@@ -6,8 +6,6 @@ mac_specific_install() {
   # install Homebrew
   print_header "Installing Homebrew"
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-  # make sure Homebrew is setup
-  brew doctor
   # install git via Homebrew
   print_header "Installing git"
   brew install git
