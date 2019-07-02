@@ -116,3 +116,4 @@ source ~/.dotfiles_aliases/createdockspacer
 source ~/.dotfiles_aliases/printheader
 source ~/.dotfiles_aliases/waitforhost
 source ~/.dotfiles_aliases/currentbranch
+alias create-spring-project="python ~/.dotfiles_aliases/create-spring-project"
