@@ -1,0 +1,79 @@
+#!/usr/bin/env python
+
+import sh
+
+# input fix for python2 / python3 compatibility
+try:
+    input = raw_input
+except NameError:
+    pass
+
+def main():
+    folderName = input('Enter the folder name: ')
+    sh.mkdir(folderName)
+    packageName = input('Enter the package name: ')
+    packagePath = '/'.join(packageName.split('.'))
+    sh.mkdir('-p', '{}/src/main/java/{}'.format(folderName, packagePath))
+
+    buildGradleContents = """buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.1.6.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+bootJar {
+    version =  '0.0.1'
+}
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web")
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+"""
+
+    applicationJavaContents = """
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+public class Application {
+
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
+}
+"""
+
+    gitignoreContents = """# Ignore Gradle project-specific cache directory
+.gradle
+
+# Ignore Gradle build output directory
+build
+
+# Ignore IntelliJ files
+*.iml
+idea/
+"""
+
+    sh.gradle('init', _cwd=folderName)
+    sh.echo(buildGradleContents, _out='{}/build.gradle'.format(folderName))
+    sh.echo('package {};\n'.format(packageName) + applicationJavaContents, _out='{}/src/main/java/{}/Application.java'.format(folderName, packagePath))
+    sh.echo(gitignoreContents, _out="{}/.gitignore".format(folderName))
+
+if __name__ == '__main__':
+    main()
