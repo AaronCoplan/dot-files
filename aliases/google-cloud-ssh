@@ -1,0 +1,10 @@
+#!/bin/bash
+
+gssh() {
+  if [ -z "$1" ]
+  then
+    echo "No argument supplied to gssh!"
+    return 1
+  fi
+  ssh -i "$HOME/.ssh/gcloud" $1
+}

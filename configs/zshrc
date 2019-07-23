@@ -116,4 +116,5 @@ source ~/.dotfiles_aliases/createdockspacer
 source ~/.dotfiles_aliases/printheader
 source ~/.dotfiles_aliases/waitforhost
 source ~/.dotfiles_aliases/currentbranch
+source ~/.dotfiles_aliases/google-cloud-ssh
 alias create-spring-project="python ~/.dotfiles_aliases/create-spring-project"
