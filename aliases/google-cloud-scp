@@ -11,5 +11,5 @@ gscp() {
     echo "No second argument supplied to gscp!"
     return 1
   fi
-  scp -i "$HOME/.ssh/gcloud" $1 $2
+  scp -i "$HOME/.ssh/gcloud" "$@"
 }
