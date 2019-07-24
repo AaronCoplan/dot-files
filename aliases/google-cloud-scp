@@ -1,0 +1,15 @@
+#!/bin/bash
+
+gscp() {
+  if [ -z "$1" ]
+  then
+    echo "No first argument supplied to gscp!"
+    return 1
+  fi
+  if [ -z "$2" ]
+  then
+    echo "No second argument supplied to gscp!"
+    return 1
+  fi
+  scp -i "$HOME/.ssh/gcloud" $1 $2
+}
