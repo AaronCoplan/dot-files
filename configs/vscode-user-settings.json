@@ -1,0 +1,18 @@
+{
+    "java.configuration.checkProjectSettingsExclusions": false,
+    "extensions.ignoreRecommendations": false,
+    "workbench.colorTheme": "Nord",    
+    "editor.fontSize": 18,
+    "editor.fontFamily": "Source Code Pro, Menlo, Monaco, 'Courier New', monospace",
+    "window.zoomLevel": 0,
+    "terminal.integrated.cursorStyle": "line",
+    "terminal.integrated.fontSize": 18,
+    "terminal.integrated.cursorBlinking": true,
+    "terminal.integrated.fontFamily": "Source Code Pro",
+    "terminal.integrated.fontWeight": "bold",
+    "terminal.integrated.drawBoldTextInBrightColors": false,
+    "terminal.integrated.letterSpacing": 1,
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "workbench.startupEditor": "newUntitledFile"
+}
