@@ -18,6 +18,9 @@ mac_specific_install() {
   # install zsh via Homebrew
   print_header "Installing zsh"
   brew install zsh
+  # install bat for better cat/less
+  print_header "Installing bat"
+  brew install bat
   # install source-code-pro font required for terminal profile
   brew tap homebrew/cask-fonts && brew cask install font-source-code-pro
   # install coreutils
@@ -85,7 +88,9 @@ chsh -s $(which zsh)
 
 # install oh-my-zsh
 print_header "Installing oh-my-zsh"
+set +e
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+set -e
 
 # install pure-prompt
 print_header "Installing pure-prompt"
