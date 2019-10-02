@@ -121,4 +121,3 @@ source ~/.dotfiles_aliases/google-cloud-scp
 alias create-spring-project="python ~/.dotfiles_aliases/create-spring-project"
 
 alias cat="bat"
-export BAT_PAGER="less -RF"
