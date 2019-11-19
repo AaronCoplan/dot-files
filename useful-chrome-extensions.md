@@ -3,7 +3,7 @@
 ### Browsing
 - Adblock Plus
 - Honey
-- LastPass: Free Password Manager
+- 1Password
 
 ### Coding
 - GitHub Hovercard
