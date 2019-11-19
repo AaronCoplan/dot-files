@@ -14,5 +14,6 @@
     "terminal.integrated.letterSpacing": 1,
     "editor.suggestSelection": "first",
     "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
-    "workbench.startupEditor": "newUntitledFile"
+    "workbench.startupEditor": "newUntitledFile",
+    "javascript.validate.enable": false,
 }
