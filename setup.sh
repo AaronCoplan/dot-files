@@ -23,7 +23,7 @@ mac_specific_install() {
   print_header "Installing bat"
   brew install bat
   # install source-code-pro font required for terminal profile
-  brew tap homebrew/cask-fonts && brew cask install font-source-code-pro
+  brew install --cask font-source-code-pro
   # install coreutils
   brew install coreutils
   # configure system settings
