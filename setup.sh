@@ -3,9 +3,13 @@
 set -e
 
 mac_specific_install() {
-  # install Homebrew
-  print_header "Installing Homebrew"
-  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  # install Homebrew if not already installed
+  if ! command -v brew &> /dev/null; then
+    print_header "Installing Homebrew"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  else
+    print_header "Homebrew already installed, skipping"
+  fi
   # install node and npm via Homebrew
   print_header "Installing Node and NPM"
   brew install node
