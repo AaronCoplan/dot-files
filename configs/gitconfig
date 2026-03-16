@@ -7,11 +7,12 @@
 [alias]
   am = commit --amend
 	cb = checkout -b
-  co = checkout
+    co = checkout
 	c = commit
 	ca = commit --all
-  can = commit --all --no-verify
+    can = commit --all --no-verify
 	aa = add --all
+	addremove = add --all
 	s = status
 	last = log -1 HEAD
 	bd = branch -d

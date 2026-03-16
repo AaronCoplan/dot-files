@@ -6,9 +6,6 @@ mac_specific_install() {
   # install Homebrew
   print_header "Installing Homebrew"
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-  # install git via Homebrew
-  print_header "Installing git"
-  brew install git
   # install node and npm via Homebrew
   print_header "Installing Node and NPM"
   brew install node

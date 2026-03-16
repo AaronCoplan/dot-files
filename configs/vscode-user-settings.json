@@ -1,5 +1,4 @@
-{
-    "java.configuration.checkProjectSettingsExclusions": false,
+{    
     "extensions.ignoreRecommendations": false,
     "workbench.colorTheme": "Nord",    
     "editor.fontSize": 18,
@@ -11,9 +10,6 @@
     "terminal.integrated.fontFamily": "Source Code Pro",
     "terminal.integrated.fontWeight": "bold",
     "terminal.integrated.drawBoldTextInBrightColors": false,
-    "terminal.integrated.letterSpacing": 1,
-    "editor.suggestSelection": "first",
-    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
-    "workbench.startupEditor": "newUntitledFile",
-    "javascript.validate.enable": false,
+    "terminal.integrated.letterSpacing": 1, 
+    "workbench.startupEditor": "newUntitledFile"    
 }
