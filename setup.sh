@@ -2,6 +2,26 @@
 
 set -e
 
+# install a brew formula if not already installed
+brew_install() {
+  if brew list "$1" &>/dev/null; then
+    print_header "$1 already installed, skipping"
+  else
+    print_header "Installing $1"
+    brew install "$1"
+  fi
+}
+
+# install a brew cask if not already installed
+brew_install_cask() {
+  if brew list --cask "$1" &>/dev/null; then
+    print_header "$1 already installed, skipping"
+  else
+    print_header "Installing $1"
+    brew install --cask "$1"
+  fi
+}
+
 mac_specific_install() {
   # install Homebrew if not already installed
   if ! command -v brew &> /dev/null; then
@@ -10,25 +30,25 @@ mac_specific_install() {
   else
     print_header "Homebrew already installed, skipping"
   fi
-  # install node and npm via Homebrew
-  print_header "Installing Node and NPM"
-  brew install node
-  # install tmux via Homebrew
-  print_header "Installing tmux"
-  brew install tmux
-  # install zsh via Homebrew
-  print_header "Installing zsh"
-  brew install zsh
-  # install bat for better cat/less
-  print_header "Installing bat"
-  brew install bat
-  # install source-code-pro font required for terminal profile
-  brew install --cask font-source-code-pro
-  # install coreutils
-  brew install coreutils
+  brew_install node
+  brew_install tmux
+  brew_install zsh
+  brew_install bat
+  brew_install coreutils
+  brew_install_cask font-source-code-pro
+  brew_install_cask emacs
   # configure system settings
   # allow quitting finder via Command-Q, this hides Desktop icons/files
   defaults write com.apple.finder QuitMenuItem -bool true
+}
+
+apt_install() {
+  if dpkg -s "$1" &>/dev/null; then
+    print_header "$1 already installed, skipping"
+  else
+    print_header "Installing $1"
+    sudo apt install -y "$1"
+  fi
 }
 
 ubuntu_specific_install() {
@@ -38,20 +58,18 @@ ubuntu_specific_install() {
   # upgrade packages
   print_header "Upgrading packages"
   sudo apt upgrade -y
-  #install git via apt
-  print_header "Installing git"
-  sudo apt install -y git
+  apt_install git
   # install node and npm via apt
-  print_header "Installing Node and NPM"
-  curl -sL https://deb.nodesource.com/setup_8.x | sudo bash
-  sudo apt update
-  sudo apt install -y nodejs
-  # install tmux via apt
-  print_header "Installing tmux"
-  sudo apt install -y tmux
-  # install zsh via apt
-  print_header "Installing zsh"
-  sudo apt install -y zsh
+  if ! command -v node &>/dev/null; then
+    print_header "Installing Node and NPM"
+    curl -sL https://deb.nodesource.com/setup_8.x | sudo bash
+    sudo apt update
+    sudo apt install -y nodejs
+  else
+    print_header "Node already installed, skipping"
+  fi
+  apt_install tmux
+  apt_install zsh
 }
 
 # source helper function for printing
@@ -83,25 +101,40 @@ do
 done
 
 # now that zsh is installed, make it default shell
-print_header "Setting zsh as default shell"
-echo $(which zsh) | sudo tee -a /etc/shells
-chsh -s $(which zsh)
+if [ "$(basename "$SHELL")" = "zsh" ]; then
+  print_header "zsh is already default shell, skipping"
+else
+  print_header "Setting zsh as default shell"
+  echo $(which zsh) | sudo tee -a /etc/shells
+  chsh -s $(which zsh)
+fi
 
 # install oh-my-zsh
-print_header "Installing oh-my-zsh"
-set +e
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-set -e
+if [ -d "$HOME/.oh-my-zsh" ]; then
+  print_header "oh-my-zsh already installed, skipping"
+else
+  print_header "Installing oh-my-zsh"
+  set +e
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+  set -e
+fi
 
 # install pure-prompt
-print_header "Installing pure-prompt"
-sudo npm install --global pure-prompt --allow-root --unsafe-perm=true
+if npm list --global pure-prompt &>/dev/null; then
+  print_header "pure-prompt already installed, skipping"
+else
+  print_header "Installing pure-prompt"
+  sudo npm install --global pure-prompt --allow-root --unsafe-perm=true
+fi
 
-# install zsh-syntax-highlighting oh-my-zsh plugin, ignore error if exists
-print_header "Installing zsh-syntax-highlighting plugin"
-set +e
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-set -e
+# install zsh-syntax-highlighting oh-my-zsh plugin
+ZSH_SYNTAX_DIR="${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
+if [ -d "$ZSH_SYNTAX_DIR" ]; then
+  print_header "zsh-syntax-highlighting already installed, skipping"
+else
+  print_header "Installing zsh-syntax-highlighting plugin"
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$ZSH_SYNTAX_DIR"
+fi
 
 # setup gitconfig
 print_header "Setting up gitconfig"
