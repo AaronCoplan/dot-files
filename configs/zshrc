@@ -118,4 +118,5 @@ source ~/.dotfiles_aliases/waitforhost
 source ~/.dotfiles_aliases/currentbranch
 
 alias cat="bat"
+alias emacs="emacs -nw"
 export PATH="$HOME/.local/bin:$PATH"

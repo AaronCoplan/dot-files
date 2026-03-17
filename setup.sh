@@ -148,6 +148,11 @@ cp configs/gitconfig ~/.gitconfig
 sed -i -e "s/GIT_USERNAME_PLACEHOLDER/$GITHUB_USERNAME/g" ~/.gitconfig
 sed -i -e "s/GIT_EMAIL_PLACEHOLDER/$GITHUB_EMAIL/g" ~/.gitconfig
 
+# setup emacs config
+print_header "Setting up emacs config"
+mkdir -p ~/.emacs.d
+cp configs/init.el ~/.emacs.d/init.el
+
 # setup tmux.conf
 print_header "Setting up tmux.conf"
 cp configs/tmux.conf ~/.tmux.conf
