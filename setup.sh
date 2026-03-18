@@ -36,7 +36,10 @@ mac_specific_install() {
   brew_install bat
   brew_install coreutils
   brew_install_cask font-source-code-pro
-  brew_install_cask emacs
+  brew tap railwaycat/emacsmacport
+  brew_install emacs-mac
+  brew_install ripgrep
+  brew_install fd
   # configure system settings
   # allow quitting finder via Command-Q, this hides Desktop icons/files
   defaults write com.apple.finder QuitMenuItem -bool true
@@ -148,10 +151,23 @@ cp configs/gitconfig ~/.gitconfig
 sed -i -e "s/GIT_USERNAME_PLACEHOLDER/$GITHUB_USERNAME/g" ~/.gitconfig
 sed -i -e "s/GIT_EMAIL_PLACEHOLDER/$GITHUB_EMAIL/g" ~/.gitconfig
 
-# setup emacs config
-print_header "Setting up emacs config"
-mkdir -p ~/.emacs.d
-cp configs/init.el ~/.emacs.d/init.el
+# install doom emacs
+if [ -d "$HOME/.emacs.d/bin" ]; then
+  print_header "Doom Emacs already installed, skipping"
+else
+  print_header "Installing Doom Emacs"
+  rm -rf ~/.emacs.d
+  git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.emacs.d
+  ~/.emacs.d/bin/doom install
+fi
+
+# setup doom emacs config
+print_header "Setting up Doom Emacs config"
+mkdir -p ~/.doom.d
+cp configs/doom/init.el ~/.doom.d/init.el
+cp configs/doom/config.el ~/.doom.d/config.el
+cp configs/doom/packages.el ~/.doom.d/packages.el
+~/.emacs.d/bin/doom sync
 
 # setup tmux.conf
 print_header "Setting up tmux.conf"
