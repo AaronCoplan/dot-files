@@ -183,4 +183,9 @@ cp -r aliases ~/.dotfiles_aliases
 print_header "Setting up zshrc"
 cp configs/zshrc ~/.zshrc
 
+# setup claude code settings
+print_header "Setting up Claude Code settings"
+mkdir -p ~/.claude
+cp configs/claude-settings.json ~/.claude/settings.json
+
 print_header "Setup completed successfully"
