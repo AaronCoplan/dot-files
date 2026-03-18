@@ -1,0 +1,21 @@
+{
+  "display": {
+    "lines": [
+      {
+        "segments": {
+          "directory": { "enabled": true },
+          "git": { "enabled": true },
+          "model": { "enabled": true },
+          "context": {
+            "enabled": true,
+            "displayStyle": "bar",
+            "showPercentageOnly": true
+          },
+          "block": { "enabled": true, "type": "time" },
+          "session": { "enabled": false },
+          "today": { "enabled": false }
+        }
+      }
+    ]
+  }
+}

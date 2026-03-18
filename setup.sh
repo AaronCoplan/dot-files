@@ -187,5 +187,7 @@ cp configs/zshrc ~/.zshrc
 print_header "Setting up Claude Code settings"
 mkdir -p ~/.claude
 cp configs/claude-settings.json ~/.claude/settings.json
+mkdir -p ~/.config/claude-powerline
+cp configs/claude-powerline.json ~/.config/claude-powerline/config.json
 
 print_header "Setup completed successfully"

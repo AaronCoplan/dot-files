@@ -4,7 +4,7 @@
   },
   "statusLine": {
     "type": "command",
-    "command": "npx -y @owloops/claude-powerline@latest --style=powerline --theme=nord"
+    "command": "npx -y @owloops/claude-powerline@latest --style=powerline --theme=nord --config ~/.config/claude-powerline/config.json"
   },
   "spinnerVerbs": {
     "mode": "replace",
