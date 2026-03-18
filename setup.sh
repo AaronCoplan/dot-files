@@ -35,7 +35,7 @@ mac_specific_install() {
   brew_install zsh
   brew_install bat
   brew_install coreutils
-  brew_install_cask font-source-code-pro
+  brew_install_cask font-sauce-code-pro-nerd-font
   brew tap railwaycat/emacsmacport
   brew_install emacs-mac --with-native-comp
   brew_install ripgrep
