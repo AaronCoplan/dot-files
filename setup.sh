@@ -8,7 +8,7 @@ brew_install() {
     print_header "$1 already installed, skipping"
   else
     print_header "Installing $1"
-    brew install "$1"
+    brew install "$@"
   fi
 }
 
@@ -37,9 +37,10 @@ mac_specific_install() {
   brew_install coreutils
   brew_install_cask font-source-code-pro
   brew tap railwaycat/emacsmacport
-  brew_install emacs-mac
+  brew_install emacs-mac --with-native-comp
   brew_install ripgrep
   brew_install fd
+  brew_install shellcheck
   # configure system settings
   # allow quitting finder via Command-Q, this hides Desktop icons/files
   defaults write com.apple.finder QuitMenuItem -bool true
