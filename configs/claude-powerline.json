@@ -11,7 +11,7 @@
             "displayStyle": "bar",
             "showPercentageOnly": true
           },
-          "block": { "enabled": true, "type": "time" },
+          "block": { "enabled": false },
           "session": { "enabled": false },
           "today": { "enabled": false }
         }
