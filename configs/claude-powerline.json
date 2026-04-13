@@ -11,6 +11,11 @@
             "displayStyle": "bar",
             "showPercentageOnly": true
           },
+          "env": {
+            "enabled": true,
+            "variable": "CLAUDE_CODE_EFFORT_LEVEL",
+            "prefix": "effort"
+          },
           "block": { "enabled": false },
           "session": { "enabled": false },
           "today": { "enabled": false }

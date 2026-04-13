@@ -1,6 +1,7 @@
 {
   "env": {
-    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
+    "CLAUDE_CODE_EFFORT_LEVEL": "max"
   },
   "statusLine": {
     "type": "command",
@@ -9,16 +10,12 @@
   "spinnerVerbs": {
     "mode": "replace",
     "verbs": [
-      "Pondering",
-      "Assembling",
-      "Sketching",
-      "Weaving",
-      "Sifting",
-      "Tinkering",
-      "Mulling",
-      "Distilling",
-      "Charting",
-      "Forging"
+      "Constructing the point",
+      "Lining up the bottles",
+      "Creating your own calm",
+      "One point at a time",
+      "Enjoying the suffering"
     ]
-  }
+  },
+  "skipDangerousModePermissionPrompt": true
 }
