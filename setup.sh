@@ -197,6 +197,11 @@ for skill_dir in configs/claude-skills/*/; do
   ln -s "$(pwd)/configs/claude-skills/$skill_name" "$target"
 done
 mkdir -p ~/.claude/agents
-cp configs/claude-agents/*.md ~/.claude/agents/
+for agent_file in configs/claude-agents/*.md; do
+  agent_name=$(basename "$agent_file")
+  target="$HOME/.claude/agents/$agent_name"
+  rm -f "$target"
+  ln -s "$(pwd)/configs/claude-agents/$agent_name" "$target"
+done
 
 print_header "Setup completed successfully"
