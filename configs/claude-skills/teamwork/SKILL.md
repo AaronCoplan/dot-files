@@ -1,5 +1,5 @@
 ---
-name: team
+name: teamwork
 description: Spin up a dynamic agent team to tackle complex tasks. Designs team composition based on the problem, gets user approval, executes with agent teams, supports iteration, and auto-reviews at session end.
 allowed-tools: TeamCreate TeamDelete SendMessage TaskCreate TaskUpdate TaskList TaskGet AskUserQuestion
 argument-hint: [task description]
@@ -117,6 +117,8 @@ When teammates complete their work:
 
 After presenting initial results, the team enters iteration mode.
 
+**CRITICAL: Do NOT shut down agents or the team during this phase.** Idle agents are waiting for work, not signaling they should be terminated. Even if every agent is idle and every task is complete, the team stays alive until the user explicitly triggers Phase 4. Sending `shutdown_request` or calling `TeamDelete` before the user says "wrap it up" is a bug — it destroys context the user may need for iteration.
+
 ### Iteration Flow
 
 1. **Prompt the user:** After presenting results, say: "You can iterate on any aspect — I'll route feedback to the relevant teammates. Say 'wrap it up' when you're satisfied."
@@ -146,7 +148,7 @@ Suggestion: [specific pivot direction or wrap-up recommendation]
 
 ## Phase 4: Session Wrap-Up
 
-When the user signals they're done (e.g., "we're done", "wrap it up", "that's good", "finish"):
+**This phase triggers ONLY when the user explicitly signals they're done** (e.g., "we're done", "wrap it up", "that's good", "finish"). All tasks being complete is NOT a trigger. All agents being idle is NOT a trigger. Only an explicit user signal.
 
 ### Outcomes Summary
 

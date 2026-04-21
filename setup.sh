@@ -190,7 +190,12 @@ cp configs/claude-settings.json ~/.claude/settings.json
 mkdir -p ~/.config/claude-powerline
 cp configs/claude-powerline.json ~/.config/claude-powerline/config.json
 mkdir -p ~/.claude/skills
-cp -r configs/claude-skills/* ~/.claude/skills/
+for skill_dir in configs/claude-skills/*/; do
+  skill_name=$(basename "$skill_dir")
+  target="$HOME/.claude/skills/$skill_name"
+  rm -rf "$target"
+  ln -s "$(pwd)/configs/claude-skills/$skill_name" "$target"
+done
 mkdir -p ~/.claude/agents
 cp configs/claude-agents/*.md ~/.claude/agents/
 
